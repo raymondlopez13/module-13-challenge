@@ -13,12 +13,12 @@ router.get('/', (req, res) => {
     include: [
       {
         model: Category,
-        attributes: ['category_name']
+        attributes: ['id', 'category_name']
       },
       {
         model: Tag,
-        attributes: ['tag_name'],
-        through: ProductTag
+        attributes: ['id', 'tag_name'],
+        through: {attributes: []}
       }
   ]  
   }).then(data => res.json(data)).catch(err => {
@@ -39,11 +39,12 @@ router.get('/:id', (req, res) => {
     include: [
       {
         model: Category,
-        attributes: ['category_name']
+        attributes: ['id', 'category_name']
       },
       {
         model: Tag,
-        attributes: ['tag_name'],
+        attributes: ['id', 'tag_name'],
+        through: {attributes: []}
       }
   ]
   }).then(data => res.json(data))
@@ -55,14 +56,6 @@ router.get('/:id', (req, res) => {
 
 // create new product
 router.post('/', (req, res) => {
-  /* req.body should look like this...
-    {
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-    }
-  */
   Product.create({
     product_name: req.body.product_name,
     price: req.body.price,

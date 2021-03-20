@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
   Tag.findAll({
     include: {
       model: Product,
-      attributes: ['product_name']
+      attributes: ['id', 'product_name'],
+      through: {attributes: []}
     }
   }).then(data => res.json(data)).catch(err => {
     console.log(err);
@@ -26,7 +27,8 @@ router.get('/:id', (req, res) => {
     },
     include: {
       model: Product,
-      attributes: ['product_name']
+      attributes: ['id', 'product_name'],
+      through: {attributes: []}
     }
   }).then(data => res.json(data)).catch(err => {
     console.log(err);
